@@ -1,0 +1,28 @@
+<%include ../partials/header%>
+<div class="container">
+    <div class="">
+        <h1 style="text-align: center">Create a New Campground</h1>
+        <div style="margin: 15px auto;width: 40%">
+            <form action="\campgrounds" method="post" >
+                <div class="form-group">
+                    <label for="Campground Name">Campground Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Campground Name" id="Campground Name">
+                </div>
+                <div class="form-group">
+                    <label for="Image Link">Imagine address</label>
+                    <input type="text" class="form-control" name="img" placeholder="Image Link" id="Image Link">
+                </div>
+                <div class="form-group">
+                    <label for="des">Description</label>
+                    <input type="text" class="form-control" name="des" placeholder="Description" id="des">
+                </div>
+                 <input type="submit" class="btn btn-primary btn-block">
+            </form>
+            <a href="/">Back</a>
+        </div>
+
+    </div>
+ </div>
+
+<%include ../partials/footer%>
+
