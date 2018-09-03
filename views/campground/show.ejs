@@ -1,12 +1,41 @@
 <%include ../partials/header%>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h1>YelpComp</h1>
+            <ul class="list-group">
+                <li class="list-group-item active">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
 
-<h1>show detail</h1>
-<h2><%=detail.name%></h2>
-<img src="<%=detail.img%>" alt="">
-<p><a href="/campgrounds/<%=detail._id%>/comments/new" class="btn btn-primary">add comment</a></p>
+        </div>
 
-<% detail.comments.forEach(function (comment){ %>
-    <p> <%=comment.text%> - <%=comment.author%></p>
-<%})%>
+        <div class="col-md-9">
+
+            <p><img src="<%=detail.img%>" alt="" style="width: 100%;"></p>
+            <h4><%=detail.name%></h4>
+            <h4 class="pull-right" style="display: inline-block">10%</h4>
+
+            <div class="card bg-light card-block">
+                <div class="col-md-12 well">
+                    <p><a href="/campgrounds/<%=detail._id%>/comments/new" class="btn btn-primary">add comment</a></p>
+                    <% detail.comments.forEach(function (comment){ %>
+
+                    <p> <%=comment.text%> - <%=comment.author%></p>
+                    <%})%>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
 
 <%include ../partials/footer%>
