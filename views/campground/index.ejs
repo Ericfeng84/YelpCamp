@@ -17,10 +17,10 @@
 
                     <div class="col-md-3 col-sm-6" style="margin-bottom: 15px">
                         <div class="card" >
-                            <img src="<%=camp.img%>" class="img-thumbnail">
+                            <img src="<%=camp.img%>" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title"><%=camp.name%></h5>
-                                <p class="card-text"><%=camp.des%></p>
+                                <p class="card-text"><%=camp.des.substr(0,60)%></p>
                                 <a href="/campgrounds/<%=camp._id%>" class="btn btn-primary">Detail</a>
                             </div>
                          </div>

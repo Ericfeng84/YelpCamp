@@ -15,23 +15,39 @@
 
         <div class="col-md-9">
 
-            <p><img src="<%=detail.img%>" alt="" style="width: 100%;"></p>
-            <h4><%=detail.name%></h4>
-            <h4 class="pull-right" style="display: inline-block">10%</h4>
-
-            <div class="card bg-light card-block">
-                <div class="col-md-12 well">
-                    <p><a href="/campgrounds/<%=detail._id%>/comments/new" class="btn btn-primary">add comment</a></p>
-                    <% detail.comments.forEach(function (comment){ %>
-
-                    <p> <%=comment.text%> - <%=comment.author%></p>
-                    <%})%>
+            <div class="card bg-light" id="showdetail">
+                <img class="card-img-top" src="<%=detail.img%>" >
+                <div class="card-body ">
+                    <div class="card-title d-flex">
+                        <h4 class=" "><%=detail.name%></h4>
+                        <h4 class="ml-auto">10$</h4>
+                    </div>
+                    <p><%=detail.des%></p>
                 </div>
             </div>
 
+            <p></p>
 
+            <div class="card card-body bg-light">
+                <p class="text-right">
+                    <a href="/campgrounds/<%=detail._id%>/comments/new" class="btn btn-primary">Add Comment</a>
+                </p>
 
+                <hr>
 
+                <% detail.comments.forEach(function (comment){ %>
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="d-flex">
+                                <strong><%=comment.author%></strong>
+                                <span class="ml-auto">10 days agp</span>
+                            </div>
+                                <p><%=comment.text%></p>
+                        </div>
+                    </div>
+                    <%})%>
+                </div>
+            </div>
 
         </div>
     </div>

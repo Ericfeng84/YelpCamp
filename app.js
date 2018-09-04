@@ -9,6 +9,7 @@ const express=require("express"),
 
 seedDB()
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.static(__dirname + "/public"))
 app.set("view engine", "ejs");
 
 //database
