@@ -10,19 +10,14 @@ const express=require("express"),
         User = require("./models/user"),
 
 
-        seedDB= require("./seed")
+        seedDB= require("./seed");
 
 
 seedDB();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
-app.use(function (req,res,next) {
-    console.log(req.user)
-    res.locals.currentUser = req.user;
-    next()
-    console.log(res.currentUser)
-});
+
 
 
 //passport configuration
@@ -38,6 +33,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// after passport setup
+app.use(function (req, res, next) {
+    res.locals.currentUser = req.user
+    console.log(req);
+    next();
+});
 
 
 //database
@@ -50,7 +51,7 @@ app.get("/",function (req,res) {
 });
 
 app.get("/campgrounds/",function (req,res) {
-    // console.log(req.user);
+    console.log(req.user);
     // console.log(res.currentUser);
     Campground.find(function (err,campgroundall) {
         if(err){
