@@ -26,30 +26,45 @@
                     <p>
                         <em>Submit by <%=detail.author.username%></em>
                     </p>
+                    <%if(currentUser &&  detail.author.id.equals(currentUser._id)){%>
+                        <a href="/campgrounds/<%=detail._id%>/edit" class="btn btn-warning">Edit</a>
+                        <form id="delForm" action="/campgrounds/<%=detail._id%>/?_method=DELETE" method="post">
+                            <button  class="btn btn-danger">Delete</button>
+                        </form>
+                    <%}%>
                 </div>
             </div>
 
             <p></p>
 
-            <div class="card card-body bg-light">
-                <p class="text-right">
-                    <a href="/campgrounds/<%=detail._id%>/comments/new" class="btn btn-primary">Add Comment</a>
-                </p>
+            <div class="card bg-light">
+                <div class="card-body">
+                    <p class="text-right">
+                        <a href="/campgrounds/<%=detail._id%>/comments/new" class="btn btn-primary">Add Comment</a>
+                    </p>
 
-                <hr>
+                    <hr>
 
-                <% detail.comments.forEach(function (comment){ %>
+                    <% detail.comments.forEach(function (comment){ %>
                     <div class="row">
                         <div class="col-md-12 ">
                             <div class="d-flex">
                                 <strong><%=comment.author.username%></strong>
                                 <span class="ml-auto">10 days agp</span>
                             </div>
-                                <p><%=comment.text%></p>
+                            <p><%=comment.text%></p>
+                            <a class="btn btn-link" href="\campgrounds\<%=detail._id%>\comments\<%=comment.id%>\edit\">Edit</a>
+                            <form id="delCommentForm" action="\campgrounds\<%=detail._id%>\comments\<%=comment.id%>\?_method=DELETE" method="post">
+                                <button  class="btn btn-link" >Delete</button>
+                            </form>
+
                         </div>
                     </div>
                     <%})%>
+                    </div>
                 </div>
+
+
             </div>
 
         </div>

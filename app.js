@@ -1,8 +1,8 @@
 const express=require("express"),
         app=express(),
         bodyParser = require("body-parser"),
+        methodOverride = require("method-override"),
         mongoose = require("mongoose"),
-
         passport = require("passport"),
         LocalStrategy = require("passport-local").Strategy,
 
@@ -21,6 +21,7 @@ const indexRouter=require("./routes/index"),
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
+app.use(methodOverride("_method"))
 
 
 

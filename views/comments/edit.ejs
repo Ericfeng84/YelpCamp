@@ -1,12 +1,12 @@
 <%include ../partials/header%>
 <div class="container">
     <div class="">
-        <h1 style="text-align: center">Create Comment for <%=campground.name%> </h1>
+        <h1 style="text-align: center">Edit Comment </h1>
         <div style="margin: 15px auto;width: 40%">
-            <form action="\campgrounds\<%=campground._id%>\comments" method="post" >
+            <form action="\campgrounds\<%=campground%>\comments\<%=comment.id%>\?_method=put" method="post" >
                 <div class="form-group">
                     <label for="text">Comment Text</label>
-                    <input type="text" class="form-control" name="comment[text]" placeholder="Comment Text" id="text">
+                    <input type="text" class="form-control" name="text" value="<%=comment.text%>" id="text">
                 </div>
 
                 <input type="submit" class="btn btn-primary btn-block">
