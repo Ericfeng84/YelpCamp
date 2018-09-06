@@ -16,7 +16,8 @@ const indexRouter=require("./routes/index"),
         commentRouter=require("./routes/comment");
 
 
-seedDB();
+// seedDB();
+
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");

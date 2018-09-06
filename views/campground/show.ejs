@@ -23,6 +23,9 @@
                         <h4 class="ml-auto">10$</h4>
                     </div>
                     <p><%=detail.des%></p>
+                    <p>
+                        <em>Submit by <%=detail.author.username%></em>
+                    </p>
                 </div>
             </div>
 
@@ -39,7 +42,7 @@
                     <div class="row">
                         <div class="col-md-12 ">
                             <div class="d-flex">
-                                <strong><%=comment.author%></strong>
+                                <strong><%=comment.author.username%></strong>
                                 <span class="ml-auto">10 days agp</span>
                             </div>
                                 <p><%=comment.text%></p>
