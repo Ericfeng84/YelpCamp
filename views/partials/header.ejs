@@ -13,7 +13,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" >
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto">
                 <%if(!currentUser){%>
                     <li class="nav-item ">
@@ -33,4 +33,18 @@
             </ul>
         </div>
     </nav>
+</div>
+
+<div class="container">
+    <%if (susccessmes && susccessmes.length>0){ %>
+        <div class="alert alert-success" role="alert">
+            <%=susccessmes%>
+        </div>
+    <%}%>
+
+    <%if (errormes && errormes.length>0){ %>
+        <div class="alert alert-danger" role="alert">
+            <%=errormes%>
+        </div>
+    <%}%>
 </div>

@@ -15,12 +15,13 @@ router.post("/register",function (req,res) {
     var newUser = new User({username:req.body.username});
     User.register(newUser, req.body.password, function (err,user) {
         if(err){
+            req.flash("error","User already exit, Please login in");
             console.log(err)
         } else {
-            console.log("is ok")
+
             passport.authenticate("local")(req,res,function () {
-                    console.log("ok")
-                    res.redirect("/campgrounds");
+                req.flash("success","New user create");
+                res.redirect("/campgrounds");
                 }
             )
         }
@@ -34,20 +35,14 @@ router.get("/login",function (req,res) {
 
 router.get("/loginout",function (req,res) {
     req.logout();
+    req.flash("success","Success login out");
     res.redirect("/campgrounds")
 });
 
-function isLoggedIn(req,res,next){
-    if (req.isAuthenticated()){
-        return next()
-    }
-    res.redirect("/login")
-}
 
 router.post("/login",passport.authenticate("local",{
     successRedirect: "/campgrounds",
     failureRedirect:"/login"
 }),function (req,res) {});
-
 
 module.exports = router;

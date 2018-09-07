@@ -1,9 +1,10 @@
 const  express=require("express"),
         router=express.Router({mergeParams:true}),
+        middlewareObj = require("../middleware"),
         Comment = require("../models/comment"),
         Campground = require("../models/campground");
 
-router.get("/new", isLoggedIn, function(req,res) {
+router.get("/new", middlewareObj.isLoggedIn, function(req,res) {
     Campground.findById(req.params.id, function (err, campground) {
         if (err) {
             console.log("Id error")
@@ -13,7 +14,7 @@ router.get("/new", isLoggedIn, function(req,res) {
     })
 });
 
-router.post("/",isLoggedIn,function(req,res){
+router.post("/",middlewareObj.isLoggedIn,function(req,res){
     Campground.findById(req.params.id, function (err, campground) {
         if (err) {
             console.log("Id error")
@@ -29,6 +30,7 @@ router.post("/",isLoggedIn,function(req,res){
                     newComment.save();
                     campground.comments.push(newComment);
                     campground.save();
+                    req.flash("success","New Comment create")
                     res.redirect("/campgrounds/" + campground._id)
                 }
             })
@@ -36,7 +38,7 @@ router.post("/",isLoggedIn,function(req,res){
     })
 });
 
-router.get("/:commentId/edit", commentOwnerCheck, function(req,res) {
+router.get("/:commentId/edit", middlewareObj.commentOwnerCheck, function(req,res) {
 
     Comment.findById(req.params.commentId, function (err, findComment) {
         if (err) {
@@ -47,52 +49,27 @@ router.get("/:commentId/edit", commentOwnerCheck, function(req,res) {
     })
 });
 
-router.put("/:commentId/",commentOwnerCheck,function (req,res) {
+router.put("/:commentId/",middlewareObj.commentOwnerCheck,function (req,res) {
     var picId=req.params.commentId;
     Comment.findByIdAndUpdate(picId,req.body.comment,function(err,detailId){
         if (err){
             console.log("Error")
         } else {
+            req.flash("success","Comment have been changed!")
             res.redirect("/campgrounds/" + req.params.id);
         }
     })
 });
 
-router.delete("/:commentId/",commentOwnerCheck,function (req,res) {
+router.delete("/:commentId/",middlewareObj.commentOwnerCheck,function (req,res) {
     var picId=req.params.commentId;
     Comment.findByIdAndRemove(picId,function(err){
         if (err){
             console.log("Error")
         } else {
+            req.flash("success","Comment have been delete")
             res.redirect("/campgrounds/" + req.params.id);
         }
     })
 });
-
-function isLoggedIn(req,res,next){
-    if (req.isAuthenticated()){
-        return next()
-    }
-    res.redirect("/login")
-}
-
-function commentOwnerCheck(req,res,next){
-    if (req.isAuthenticated()){
-        Comment.findById(req.params.commentId, function (err,findComment) {
-            if(err){
-                res.send("not find cam")
-            } else {
-                if (res.locals.currentUser && findComment.author.id.equals(res.locals.currentUser._id)){
-                    next()
-                } else {
-                    res.redirect("back")
-                }
-            }
-
-        })
-    } else {
-        res.redirect("/login")
-    }
-}
-
 module.exports = router;
