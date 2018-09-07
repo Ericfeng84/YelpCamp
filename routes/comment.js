@@ -36,7 +36,7 @@ router.post("/",isLoggedIn,function(req,res){
     })
 });
 
-router.get("/:commentId/edit",  function(req,res) {
+router.get("/:commentId/edit", commentOwnerCheck, function(req,res) {
 
     Comment.findById(req.params.commentId, function (err, findComment) {
         if (err) {
@@ -47,10 +47,9 @@ router.get("/:commentId/edit",  function(req,res) {
     })
 });
 
-router.put("/:commentId/",function (req,res) {
+router.put("/:commentId/",commentOwnerCheck,function (req,res) {
     var picId=req.params.commentId;
-    var comment={text:req.body.text}
-    Comment.findByIdAndUpdate(picId,comment,function(err,detailId){
+    Comment.findByIdAndUpdate(picId,req.body.comment,function(err,detailId){
         if (err){
             console.log("Error")
         } else {
@@ -59,7 +58,7 @@ router.put("/:commentId/",function (req,res) {
     })
 });
 
-router.delete("/:commentId/",function (req,res) {
+router.delete("/:commentId/",commentOwnerCheck,function (req,res) {
     var picId=req.params.commentId;
     Comment.findByIdAndRemove(picId,function(err){
         if (err){
@@ -75,6 +74,25 @@ function isLoggedIn(req,res,next){
         return next()
     }
     res.redirect("/login")
+}
+
+function commentOwnerCheck(req,res,next){
+    if (req.isAuthenticated()){
+        Comment.findById(req.params.commentId, function (err,findComment) {
+            if(err){
+                res.send("not find cam")
+            } else {
+                if (res.locals.currentUser && findComment.author.id.equals(res.locals.currentUser._id)){
+                    next()
+                } else {
+                    res.redirect("back")
+                }
+            }
+
+        })
+    } else {
+        res.redirect("/login")
+    }
 }
 
 module.exports = router;

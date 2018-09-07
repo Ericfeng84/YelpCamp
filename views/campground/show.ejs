@@ -53,10 +53,12 @@
                                 <span class="ml-auto">10 days agp</span>
                             </div>
                             <p><%=comment.text%></p>
-                            <a class="btn btn-link" href="\campgrounds\<%=detail._id%>\comments\<%=comment.id%>\edit\">Edit</a>
-                            <form id="delCommentForm" action="\campgrounds\<%=detail._id%>\comments\<%=comment.id%>\?_method=DELETE" method="post">
-                                <button  class="btn btn-link" >Delete</button>
-                            </form>
+                            <%if(currentUser &&  comment.author.id.equals(currentUser._id)){%>
+                                <a class="btn btn-link" href="\campgrounds\<%=detail._id%>\comments\<%=comment.id%>\edit\">Edit</a>
+                                <form id="delCommentForm" action="\campgrounds\<%=detail._id%>\comments\<%=comment.id%>\?_method=DELETE" method="post">
+                                    <button  class="btn btn-link" >Delete</button>
+                                </form>
+                            <%}%>
 
                         </div>
                     </div>

@@ -6,7 +6,7 @@
             <form action="\campgrounds\<%=campground%>\comments\<%=comment.id%>\?_method=put" method="post" >
                 <div class="form-group">
                     <label for="text">Comment Text</label>
-                    <input type="text" class="form-control" name="text" value="<%=comment.text%>" id="text">
+                    <input type="text" class="form-control" name="comment[text]" value="<%=comment.text%>" id="text">
                 </div>
 
                 <input type="submit" class="btn btn-primary btn-block">
