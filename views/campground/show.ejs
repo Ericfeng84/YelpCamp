@@ -1,0 +1,77 @@
+<%include ../partials/header%>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h1>YelpComp</h1>
+            <ul class="list-group">
+                <li class="list-group-item active">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-9">
+
+            <div class="card bg-light" id="showdetail">
+                <img class="card-img-top" src="<%=detail.img%>" >
+                <div class="card-body ">
+                    <div class="card-title d-flex">
+                        <h4 class=" "><%=detail.name%></h4>
+                        <h4 class="ml-auto">10$</h4>
+                    </div>
+                    <p><%=detail.des%></p>
+                    <p>
+                        <em>Submit by <%=detail.author.username%> <%= moment(detail.createdAt).fromNow() %></em>
+                    </p>
+                    <%if(currentUser &&  detail.author.id.equals(currentUser._id)){%>
+                        <a href="/campgrounds/<%=detail._id%>/edit" class="btn btn-warning">Edit</a>
+                        <form id="delForm" action="/campgrounds/<%=detail._id%>/?_method=DELETE" method="post">
+                            <button  class="btn btn-danger">Delete</button>
+                        </form>
+                    <%}%>
+                </div>
+            </div>
+
+            <p></p>
+
+            <div class="card bg-light">
+                <div class="card-body">
+                    <p class="text-right">
+                        <a href="/campgrounds/<%=detail._id%>/comments/new" class="btn btn-primary">Add Comment</a>
+                    </p>
+
+                    <hr>
+
+                    <% detail.comments.forEach(function (comment){ %>
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="d-flex">
+                                <strong><%=comment.author.username%></strong>
+                                <span class="ml-auto"><%= moment(comment.createdAt).fromNow() %></span>
+                            </div>
+                            <p><%=comment.text%></p>
+                            <%if(currentUser &&  comment.author.id.equals(currentUser._id)){%>
+                                <a class="btn btn-link" href="\campgrounds\<%=detail._id%>\comments\<%=comment.id%>\edit\">Edit</a>
+                                <form id="delCommentForm" action="\campgrounds\<%=detail._id%>\comments\<%=comment.id%>\?_method=DELETE" method="post">
+                                    <button  class="btn btn-link" >Delete</button>
+                                </form>
+                            <%}%>
+
+                        </div>
+                    </div>
+                    <%})%>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<%include ../partials/footer%>

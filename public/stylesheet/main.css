@@ -1,0 +1,14 @@
+.card-img-top {
+    width: 100%;
+}
+
+.card{
+    padding: 0;
+}
+
+#delForm{
+    display: inline;
+}
+#delCommentForm{
+    display: inline;
+}

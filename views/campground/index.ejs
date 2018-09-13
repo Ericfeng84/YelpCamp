@@ -1,0 +1,27 @@
+<%include ../partials/header%>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Overview Campground</h1>
+        <p class="lead">We pick the top campground around the world</p>
+        <a class="btn btn-primary btn-lg" role="button" href="\campgrounds\new">Add new Campground</a>
+    </div>
+
+    <div class="row">
+            <%campgrounds.forEach(function (camp) {%>
+
+                    <div class="col-md-3 col-sm-6" style="margin-bottom: 15px">
+                        <div class="card" >
+                            <img src="<%=camp.img%>" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title"><%=camp.name%></h5>
+                                <p class="card-text"><%=camp.des.substr(0,60)%></p>
+                                <a href="/campgrounds/<%=camp._id%>" class="btn btn-primary">Detail</a>
+                            </div>
+                         </div>
+                     </div>
+            <% })%>
+    </div>
+</div>
+
+<%include ../partials/footer%>
